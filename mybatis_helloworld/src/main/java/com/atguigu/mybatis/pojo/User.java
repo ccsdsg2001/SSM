@@ -1,10 +1,10 @@
-package com.atguigu.mybatis;
+package com.atguigu.mybatis.pojo;
 
 /**
  * @author cc
  * @date 2022年09月13日 22:28
  */
-public class pojo {
+public class User {
     private  Integer id;
     private String username;
     private String password;
@@ -12,10 +12,10 @@ public class pojo {
     private String gender;
     private String email;
 
-    public pojo() {
+    public User() {
     }
 
-    public pojo(Integer id, String username, String password, Integer age, String gender, String email) {
+    public User(Integer id, String username, String password, Integer age, String gender, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -27,7 +27,7 @@ public class pojo {
 
     @Override
     public String toString() {
-        return "pojo{" +
+        return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
