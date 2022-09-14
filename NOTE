@@ -23,7 +23,7 @@ SQL 和 Java 编码分开，功能边界清晰。Java代码专注业务、SQL语
 开发效率稍逊于HIbernate，但是完全能够接受
 
 2.搭建MyBatis
-MySQL不同版本的注意事项
+MySQL不同版本的注意事项 ！mapper接口和映射文件保持一致 1.mapper接口的全类名和映射文件的namespace一致 2.接口中的方法的方法名和映射文件中的sql的id保持一致
 1、驱动类driver-class-name
 MySQL 5版本使用jdbc5驱动，驱动类使用：com.mysql.jdbc.Driver
 MySQL 8版本使用jdbc8驱动，驱动类使用：com.mysql.cj.jdbc.Driver
@@ -100,4 +100,4 @@ insert into t_user values(null,'admin','123456',23,'男','12345@qq.com')
 </insert>
 </mapper>
 
-
+p18
