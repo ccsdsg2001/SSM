@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.mybatis.mapper.UserMapper">
+<!--User getUserByUsername(String username);-->
+    <select id="getUserByUsername" resultType="User">
+    <!--    select * from t_user where username = #{username} -->
+        select * from t_user where username = '${username}'
+    </select>
+
+<!--    User checkLogin(String username,String password);-->
+    <select id="checkLogin" resultType="User">
+        select * from t_user where username=#{arg0} and password =#{arg1}
+    </select>
+
+<!--    User checkLoginBymap(Map<String,Object> map);-->
+    <select id="checkLoginBymap" resultType="User">
+        select * from t_user where username=#{username} and password =#{password}
+    </select>
+
+<!--    void inseruser(User user);-->
+    <insert id="inseruser">
+        insert  into t_user values(null,#{username},#{password},#{age},#{gender},#{email})
+    </insert>
+
+<!--    checkLoginByParam-->
+    <select id="checkLoginByParam" resultType="User">
+        select * from t_user where username = #{username} and password =#{password}
+    </select>
+</mapper>
