@@ -24,4 +24,10 @@
         select * from t_user
     </select>
 
+    <!--        List<User> getUserBy(@Param("mohu") String mohu);
+-->
+
+    <select id="getUserBy" resultType="User">
+        select * from t_user where username like '%${mohu}%'
+    </select>
 </mapper>
