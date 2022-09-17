@@ -1,5 +1,7 @@
 package mybatis.pojo;
 
+import java.util.List;
+
 /**
  * @author cc
  * @date 2022年09月16日 22:17
@@ -7,6 +9,25 @@ package mybatis.pojo;
 public class Dept {
     private Integer deptId;
     private String deptName;
+    private List<Emp> emps;
+
+
+    @Override
+    public String toString() {
+        return "Dept{" +
+                "deptId=" + deptId +
+                ", deptName='" + deptName + '\'' +
+                ", emps=" + emps +
+                '}';
+    }
+
+    public List<Emp> getEmps() {
+        return emps;
+    }
+
+    public void setEmps(List<Emp> emps) {
+        this.emps = emps;
+    }
 
     public Dept() {
     }
@@ -32,11 +53,4 @@ public class Dept {
         this.deptName = deptName;
     }
 
-    @Override
-    public String toString() {
-        return "Dept{" +
-                "deptId=" + deptId +
-                ", deptName='" + deptName + '\'' +
-                '}';
-    }
 }

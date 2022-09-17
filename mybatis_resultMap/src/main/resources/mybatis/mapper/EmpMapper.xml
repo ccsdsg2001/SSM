@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.EmpMapper">
+<!--Emp getEmpByEmpId(@Param("empid") Integer empid);-->
+
+    <resultMap id="empResultMap" type="Emp">
+        <id column="emp_id" property="empId"></id>
+        <result column="emp_name" property="empName"></result>
+        <result column="age" property="age"></result>
+        <result column="gender" property="gender"></result>
+    </resultMap>
+    <select id="getEmpByEmpId" resultMap="empResultMap">
+        select emp_id empid from t_emp where emp_id = #{empid}
+    </select>
+<!--    <select id="getEmpByEmpId" resultType="mybatis.pojo.Emp">-->
+<!--        select emp_id empid from t_emp where emp_id = #{empid}-->
+<!--    </select>-->
+    <resultMap id="emp" type="Emp">
+        <id column="emp_id" property="empId"></id>
+        <result column="emp_name" property="empName"></result>
+        <result column="age" property="age"></result>
+        <result column="gender" property="gender"></result>
+        <result column="dept_id" property="dept.deptId"></result>
+        <result column="dept_name" property="dept.deptName"></result>
+    </resultMap>
+
+
+    <resultMap id="emp2" type="Emp">
+        <id column="emp_id" property="empId"></id>
+        <result column="emp_name" property="empName"></result>
+        <result column="age" property="age"></result>
+        <result column="gender" property="gender"></result>
+        <association property="dept" javaType="Dept">
+            <id column="dept_id" property="deptId"></id>
+            <result column="dept_name" property="deptName"></result>
+        </association>
+    </resultMap>
+
+
+    <select id="getemp" resultMap="emp">
+        select * from t_emp left join t_dept on t_emp.dept_id = t_dept.dept_id where t_emp.emp_id = #{empid}
+    </select>
+
+
+
+    <resultMap id="emp44" type="Emp" >
+        <id column="emp_id" property="empId"></id>
+        <result column="emp_name" property="empName"></result>
+        <result column="age" property="age"></result>
+        <result column="gender" property="gender"></result>
+        <association property="dept" fetchType="eager"
+                     select="mybatis.mapper.DeptMapper.getEmp" column="dept_id">
+
+        </association>
+    </resultMap>
+    <select id="getone" resultMap="emp">
+        select * from t_emp where emp_id =#{empid}
+    </select>
+    
+    <select id="gettwo" resultMap="Emp">
+        select * from t_emp where dept_id =#{deptid}
+    </select>
+
+</mapper>

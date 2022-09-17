@@ -8,16 +8,10 @@ public class Emp {
     private Integer empId;
     private String empName;
     private Integer age;
+    private Dept dept;
     private String gender;
 
     public Emp() {
-    }
-
-    public Emp(Integer empId, String empName, Integer age, String gender) {
-        this.empId = empId;
-        this.empName = empName;
-        this.age = age;
-        this.gender = gender;
     }
 
     @Override
@@ -26,8 +20,24 @@ public class Emp {
                 "empId=" + empId +
                 ", empName='" + empName + '\'' +
                 ", age=" + age +
+                ", dept=" + dept +
                 ", gender='" + gender + '\'' +
                 '}';
+    }
+
+    public Dept getDept() {
+        return dept;
+    }
+
+    public void setDept(Dept dept) {
+        this.dept = dept;
+    }
+
+    public Emp(Integer empId, String empName, Integer age, String gender) {
+        this.empId = empId;
+        this.empName = empName;
+        this.age = age;
+        this.gender = gender;
     }
 
     public Integer getEmpId() {
