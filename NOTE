@@ -374,31 +374,230 @@ PS:分布查询的优点:可以实现延迟加载
            collection中的fetchType属性设置当前的分步查询是否使用延迟加载， fetchType="lazy(延迟加载)|eager(立即加载)"
 
 8.动态SQL
+(1)if
+if标签可通过test属性的表达式进行判断，若表达式的结果为true，则标签中的内容会执行；反之
+标签中的内容不会执行
+sample:<select id="getEmpListByMoreTJ" resultType="Emp">
+       select * from t_emp where 1=1
+       <if test="ename != '' and ename != null">
+       and ename = #{ename}
+       </if>
+       <if test="age != '' and age != null">
+       and age = #{age}
+       </if>
+       <if test="sex != '' and sex != null">
+       and sex = #{sex}
+       </if>
+       </select>
+
+(2)where
+where和if一般结合使用：
+a>若where标签中的if条件都不满足，则where标签没有任何功能，即不会添加where关键字
+b>若where标签中的if条件满足，则where标签会自动添加where关键字，并将条件最前方多余的
+and去掉
+注意：where标签不能去掉条件最后多余的and
+sample:<select id="getEmpListByMoreTJ2" resultType="Emp">
+       select * from t_emp
+       <where>
+       <if test="ename != '' and ename != null">
+       ename = #{ename}
+       </if>
+       <if test="age != '' and age != null">
+       and age = #{age}
+       </if>
+       <if test="sex != '' and sex != null">
+       and sex = #{sex}
+       </if>
+       </where>
+       </select>
+
+(3)trim
+trim用于去掉或添加标签中的内容
+常用属性：
+prefix：在trim标签中的内容的前面添加某些内容
+prefixOverrides：在trim标签中的内容的前面去掉某些内容
+suffix：在trim标签中的内容的后面添加某些内容
+suffixOverrides：在trim标签中的内容的后面去掉某些内容
+sample:<select id="getEmpListByMoreTJ" resultType="Emp">
+       select * from t_emp
+       <trim prefix="where" suffixOverrides="and">
+       <if test="ename != '' and ename != null">
+            ename = #{ename} and
+            </if>
+            <if test="age != '' and age != null">
+            age = #{age} and
+            </if>
+            <if test="sex != '' and sex != null">
+            sex = #{sex}
+            </if>
+        </trim>
+        </select>
+
+(4)choose,when,otherwise
+choose、when、 otherwise相当于if...else if..else
+sample:<select id="getEmpListByChoose" resultType="Emp">
+       select <include refid="empColumns"></include> from t_emp
+       <where>
+       <choose>
+       <when test="ename != '' and ename != null">
+       ename = #{ename}
+       </when>
+       <when test="age != '' and age != null">
+       age = #{age}
+       </when>
+       <when test="sex != '' and sex != null">
+       sex = #{sex}
+       </when>
+       <when test="email != '' and email != null">
+       email = #{email}
+       </when>
+       </choose>
+       </where>
+       </select>
+
+(5)foreach
+sample:
+        <insert id="insertMoreEmp">
+        insert into t_emp values
+        <foreach collection="emps" item="emp" separator=",">
+        (null,#{emp.ename},#{emp.age},#{emp.sex},#{emp.email},null)
+        </foreach>
+        </insert>
+        <!--int deleteMoreByArray(int[] eids);-->
+        <delete id="deleteMoreByArray">
+        delete from t_emp where
+        <foreach collection="eids" item="eid" separator="or">
+        eid = #{eid}
+        </foreach>
+        </delete>
+        <!--int deleteMoreByArray(int[] eids);-->
+        <delete id="deleteMoreByArray">
+        delete from t_emp where eid in
+        <foreach collection="eids" item="eid" separator="," open="(" close=")>"
+        #{eid}
+        </foreach>
+        </delete>
+
+(6)SQL片段
+sql片段，可以记录一段公共sql片段，在使用的地方通过include标签进行引入
+sample：<sql id="empColumns">
+       eid,ename,age,sex,did
+       </sql>
+       select <include refid="empColumns"></include> from t_emp
+
+9.MyBatis的缓存
+(1)MyBatis的一级缓存
+一级缓存是SqlSession级别的，通过同一个SqlSession查询的数据会被缓存，下次查询相同的数据，就
+会从缓存中直接获取，不会从数据库重新访问
+使一级缓存失效的四种情况：
+1) 不同的SqlSession对应不同的一级缓存
+2) 同一个SqlSession但是查询条件不同
+3) 同一个SqlSession两次查询期间执行了任何一次增删改操作
+4) 同一个SqlSession两次查询期间手动清空了缓存
+
+(2)Mybatis的二级缓存
+二级缓存是SqlSessionFactory级别，通过同一个SqlSessionFactory创建的SqlSession查询的结果会被
+缓存；此后若再次执行相同的查询语句，结果就会从缓存中获取
+二级缓存开启的条件：
+a>在核心配置文件中，设置全局配置属性cacheEnabled="true"，默认为true，不需要设置
+b>在映射文件中设置标签<cache/>
+c>二级缓存必须在SqlSession关闭或提交之后有效
+d>查询的数据所转换的实体类类型必须实现序列化的接口
+使二级缓存失效的情况：
+两次查询之间执行了任意的增删改，会使一级和二级缓存同时失效
+
+(3)二级缓存的相关配置
+在mapper配置文件中添加的cache标签可以设置一些属性：
+①eviction属性：缓存回收策略，默认的是 LRU。
+LRU（Least Recently Used） – 最近最少使用的：移除最长时间不被使用的对象。
+FIFO（First in First out） – 先进先出：按对象进入缓存的顺序来移除它们。
+SOFT – 软引用：移除基于垃圾回收器状态和软引用规则的对象。
+WEAK – 弱引用：更积极地移除基于垃圾收集器状态和弱引用规则的对象。
+②flushInterval属性：刷新间隔，单位毫秒
+默认情况是不设置，也就是没有刷新间隔，缓存仅仅调用语句时刷新
+③size属性：引用数目，正整数
+代表缓存最多可以存储多少个对象，太大容易导致内存溢出
+④readOnly属性：只读， true/false
+true：只读缓存；会给所有调用者返回缓存对象的相同实例。因此这些对象不能被修改。这提供了 很重
+要的性能优势。
+false：读写缓存；会返回缓存对象的拷贝（通过序列化）。这会慢一些，但是安全，因此默认是
+false。
+
+(4)MyBatis缓存查询的顺序
+先查询二级缓存，因为二级缓存中可能会有其他程序已经查出来的数据，可以拿来直接使用。
+如果二级缓存没有命中，再查询一级缓存
+如果一级缓存也没有命中，则查询数据库
+SqlSession关闭之后，一级缓存中的数据会写入二级缓存
+
+(5)第三方缓存EHCache
+<1>添加依赖
+<!-- Mybatis EHCache整合包 -->
+<dependency>
+<groupId>org.mybatis.caches</groupId>
+<artifactId>mybatis-ehcache</artifactId>
+<version>1.2.1</version>
+</dependency>
+<!-- slf4j日志门面的一个具体实现 -->
+<dependency>
+<groupId>ch.qos.logback</groupId>
+<artifactId>logback-classic</artifactId>
+<version>1.2.3</version>
+</dependency>
+
+<2>jar包功能
+jar包名称 作用
+mybatis-ehcache Mybatis和EHCache的整合包
+ehcache EHCache核心包
+slf4j-api SLF4J日志门面包
+logback-classic 支持SLF4J门面接口的一个具体实现
+
+<3>创建EHCache的配置文件ehcache.xml
+<?xml version="1.0" encoding="utf-8" ?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../config/ehcache.xsd">
+<!-- 磁盘保存路径 -->
+<diskStore path="D:\atguigu\ehcache"/>
+<defaultCache
+maxElementsInMemory="1000"
+maxElementsOnDisk="10000000"
+eternal="false"
+overflowToDisk="true"
+timeToIdleSeconds="120"
+timeToLiveSeconds="120"
+diskExpiryThreadIntervalSeconds="120"
+memoryStoreEvictionPolicy="LRU">
+</defaultCache>
+</ehcache>
+
+<4>设置二级缓存的类型
+<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+<5>加入logback日志
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+<!-- 指定日志输出的位置 -->
+<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+<encoder>
+<!-- 日志输出的格式 -->
+<!-- 按照顺序分别是： 时间、日志级别、线程名称、打印日志的类、日志主体内容、换行
+-->
+<pattern>[%d{HH:mm:ss.SSS}] [%-5level] [%thread] [%logger]
+[%msg]%n</pattern>
+</encoder>
+</appender>
+<!-- 设置全局日志级别。日志级别按顺序分别是： DEBUG、INFO、WARN、ERROR -->
+<!-- 指定任何一个日志级别都只打印当前级别和后面级别的日志。 -->
+<root level="DEBUG">
+<!-- 指定打印日志的appender，这里通过“STDOUT”引用了前面配置的appender -->
+<appender-ref ref="STDOUT" />
+</root>
+<!-- 根据特殊需求指定局部日志级别 -->
+<logger name="com.atguigu.crowd.mapper" level="DEBUG"/>
+</configuration>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-p46
+p58
 
 
 
