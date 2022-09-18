@@ -6,7 +6,7 @@ MyBatis Directory
 5.Mybatis的各种查询功能
 6.特殊的SQL执行
 7.自定义映射resultMap
-8.动态SQL  
+8.动态SQL
 9.Mybatis的缓存  
 10.Mybatis的逆向工程  
 
