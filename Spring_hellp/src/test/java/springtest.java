@@ -1,10 +1,10 @@
+import com.atguigu.spring.pojo.Clazz;
 import com.atguigu.spring.pojo.Student;
 import com.atguigu.spring.pojo.helloweord;
 import com.atguigu.spring.pojo.person;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
  * @author cc
@@ -32,6 +32,26 @@ public class springtest {
         person bean = applicationContext.getBean(person.class);
 //        System.out.println(studenttwo);
         System.out.println(bean);
+    }
+
+    @Test
+    public void test121(){
+        ApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        Student studentone = classPathXmlApplicationContext.getBean("studentone", Student.class);
+        System.out.println(studentone);
+//        Student studentthree = classPathXmlApplicationContext.getBean("studentthree", Student.class);
+//        System.out.println(studentthree);
+        Student studentthree = classPathXmlApplicationContext.getBean("studentfour", Student.class);
+        System.out.println(studentthree);
+        System.out.println("------");
+        Student studentt1hree = classPathXmlApplicationContext.getBean("student1", Student.class);
+        System.out.println(studentt1hree);
+        System.out.println();
+        Clazz clazzone = classPathXmlApplicationContext.getBean("clazzone", Clazz.class);
+        System.out.println(clazzone);
+
+        Student clazzone1 = classPathXmlApplicationContext.getBean("studawqe123",Student.class);
+        System.out.println(clazzone1);
 
 
     }

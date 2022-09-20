@@ -893,7 +893,7 @@ found 2: helloworldOne,helloworldTwo
 根据类型来获取bean时，在满足bean唯一性的前提下，其实只是看：『对象 instanceof 指定的类
 型』的返回结果，只要返回的是true就可以认定为和类型匹配，能够获取到。
 
-p70
+p79
 
 
 
