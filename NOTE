@@ -893,7 +893,349 @@ found 2: helloworldOne,helloworldTwo
 根据类型来获取bean时，在满足bean唯一性的前提下，其实只是看：『对象 instanceof 指定的类
 型』的返回结果，只要返回的是true就可以认定为和类型匹配，能够获取到。
 
-p79
+(3)bean属性赋值
+<1>依赖注入之setter注入
+②配置bean时为属性赋值
+sample：<bean id="studentOne" class="com.atguigu.spring.bean.Student">
+       <!-- property标签：通过组件类的setXxx()方法给组件对象设置属性 -->
+       <!-- name属性：指定属性名（这个属性名是getXxx()、setXxx()方法定义的，和成员变量无关）
+       -->
+       <!-- value属性：指定属性值 -->
+       <property name="id" value="1001"></property>
+       <property name="name" value="张三"></property>
+       <property name="age" value="23"></property>
+       <property name="sex" value="男"></property>
+       </bean>
+
+<2>依赖注入之构造器注入
+constructor-arg标签还有两个属性可以进一步描述构造器参数：
+    index属性：指定参数所在位置的索引（从0开始）
+    name属性：指定参数名
+
+sample:<bean id="studentTwo" class="com.atguigu.spring.bean.Student">
+       <constructor-arg value="1002"></constructor-arg>
+       <constructor-arg value="李四"></constructor-arg>
+       <constructor-arg value="33"></constructor-arg>
+       <constructor-arg value="女"></constructor-arg>
+       </bean>
+
+<3>特殊值处理
+①字面量赋值
+    <property name="name" value="张三"/>
+
+②null值
+    <property name="name">
+    <null />
+    </property>
+
+③xml实体
+    <property name="expression" value="a &lt; b"/>
+
+④CDATA节
+sample:
+        <property name="expression">
+       <!-- 解决方案二：使用CDATA节 -->
+       <!-- CDATA中的C代表Character，是文本、字符的含义，CDATA就表示纯文本数据 -->
+       <!-- XML解析器看到CDATA节就知道这里是纯文本，就不会当作XML标签或属性来解析 -->
+       <!-- 所以CDATA节中写什么符号都随意 -->
+       <value><![CDATA[a < b]]></value>
+       </property>
+
+(4)为类类属性赋值
+③方式一：引用外部已声明的bean
+sample:<bean id="studentFour" class="com.atguigu.spring.bean.Student">
+       <property name="id" value="1004"></property>
+       <property name="name" value="赵六"></property>
+       <property name="age" value="26"></property>
+       <property name="sex" value="女"></property>
+       <!-- ref属性：引用IOC容器中某个bean的id，将所对应的bean为属性赋值 -->
+       <property name="clazz" ref="clazzOne"></property>
+       </bean>
+
+PS:如果错把ref属性写成了value属性，会抛出异常： Caused by: java.lang.IllegalStateException:
+   Cannot convert value of type 'java.lang.String' to required type
+   'com.atguigu.spring.bean.Clazz' for property 'clazz': no matching editors or conversion
+   strategy found
+   意思是不能把String类型转换成我们要的Clazz类型，说明我们使用value属性时，Spring只把这个
+   属性看做一个普通的字符串，不会认为这是一个bean的id，更不会根据它去找到bean来赋值
+
+④方式二：内部bean
+sample:<bean id="studentFour" class="com.atguigu.spring.bean.Student">
+       <property name="id" value="1004"></property>
+       <property name="name" value="赵六"></property>
+       <property name="age" value="26"></property>
+       <property name="sex" value="女"></property>
+       <property name="clazz">
+       <!-- 在一个bean中再声明一个bean就是内部bean -->
+       <!-- 内部bean只能用于给属性赋值，不能在外部通过IOC容器获取，因此可以省略id属性 -->
+       <bean id="clazzInner" class="com.atguigu.spring.bean.Clazz">
+       <property name="clazzId" value="2222"></property>
+       <property name="clazzName" value="远大前程班"></property>
+       </bean>
+       </property>
+       </bean>
+
+③方式三：级联属性赋值
+sample:<bean id="studentFour" class="com.atguigu.spring.bean.Student">
+       <property name="id" value="1004"></property>
+       <property name="name" value="赵六"></property>
+       <property name="age" value="26"></property>
+       <property name="sex" value="女"></property>
+       <!-- 一定先引用某个bean为属性赋值，才可以使用级联方式更新属性 -->
+       <property name="clazz" ref="clazzOne"></property>
+       <property name="clazz.clazzId" value="3333"></property>
+       <property name="clazz.clazzName" value="最强王者班"></property>
+       </bean>
+
+(5)为数组类型属性赋值
+sample:<bean id="studentFour" class="com.atguigu.spring.bean.Student">
+       <property name="id" value="1004"></property>
+       <property name="name" value="赵六"></property>
+       <property name="age" value="26"></property>
+       <property name="sex" value="女"></property>
+       <!-- ref属性：引用IOC容器中某个bean的id，将所对应的bean为属性赋值 -->
+       <property name="clazz" ref="clazzOne"></property>
+       <property name="hobbies">
+       <array>
+       <value>抽烟</value>
+       <value>喝酒</value>
+       <value>烫头</value>
+       </array>
+       </property>
+       </bean>
+
+(6)为集合类型属性赋值
+①为List集合类型属性赋值
+bean sample:<bean id="clazzTwo" class="com.atguigu.spring.bean.Clazz">
+            <property name="clazzId" value="4444"></property>
+            <property name="clazzName" value="Javaee0222"></property>
+            <property name="students">
+            <list>
+            <ref bean="studentOne"></ref>
+            <ref bean="studentTwo"></ref>
+            <ref bean="studentThree"></ref>
+            </list>
+            </property>
+            </bean>
+
+②为Map集合类型属性赋值
+bean sample:<bean id="teacherOne" class="com.atguigu.spring.bean.Teacher">
+            <property name="teacherId" value="10010"></property>
+            <property name="teacherName" value="大宝"></property>
+            </bean>
+            <bean id="teacherTwo" class="com.atguigu.spring.bean.Teacher">
+            <property name="teacherId" value="10086"></property>
+            <property name="teacherName" value="二宝"></property>
+            </bean>
+            <bean id="studentFour" class="com.atguigu.spring.bean.Student">
+            <property name="id" value="1004"></property>
+            <property name="name" value="赵六"></property>
+            <property name="age" value="26"></property>
+            <property name="sex" value="女"></property>
+            <!-- ref属性：引用IOC容器中某个bean的id，将所对应的bean为属性赋值 -->
+            <property name="clazz" ref="clazzOne"></property>
+            <property name="hobbies">
+            <array>
+            <value>抽烟</value>
+            <value>喝酒</value>
+            <value>烫头</value>
+            </array>
+            </property>
+            <property name="teacherMap">
+            <map>
+            <entry>
+            <key>
+            <value>10010</value>
+            </key>
+            <ref bean="teacherOne"></ref>
+            </entry>
+            <entry>
+            <key>
+            <value>10086</value>
+            </key>
+            <ref bean="teacherTwo"></ref>
+            </entry>
+            </map>
+            </property>
+            </bean>
+
+③引用集合类型的bean
+sample:     <!--list集合类型的bean-->
+            <util:list id="students">
+            <ref bean="studentOne"></ref>
+            <ref bean="studentTwo"></ref>
+            <ref bean="studentThree"></ref>
+            </util:list>
+            <!--map集合类型的bean-->
+            <util:map id="teacherMap">
+            <entry>
+            <key>
+            <value>10010</value>
+            </key>
+            <ref bean="teacherOne"></ref>
+            </entry>
+            <entry>
+            <key>
+            <value>10086</value>
+            </key>
+            <ref bean="teacherTwo"></ref>
+            </entry>
+            </util:map>
+            <bean id="clazzTwo" class="com.atguigu.spring.bean.Clazz">
+            <property name="clazzId" value="4444"></property>
+            <property name="clazzName" value="Javaee0222"></property>
+            <property name="students" ref="students"></property>
+            </bean>
+            <bean id="studentFour" class="com.atguigu.spring.bean.Student">
+            <property name="id" value="1004"></property>
+            <property name="name" value="赵六"></property>
+            <property name="age" value="26"></property>
+            <property name="sex" value="女"></property>
+            <!-- ref属性：引用IOC容器中某个bean的id，将所对应的bean为属性赋值 -->
+            <property name="clazz" ref="clazzOne"></property>
+            <property name="hobbies">
+            <array>
+            <value>抽烟</value>
+            <value>喝酒</value>
+            <value>烫头</value>
+            </array>
+            </property>
+            <property name="teacherMap" ref="teacherMap"></property>
+            </bean>
+
+PS:使用util:list、util:map标签必须引入相应的命名空间，可以通过idea的提示功能选择
+
+(7)p命名空间
+引入p命名空间后，可以通过以下方式为bean的各个属性赋值
+sample:<bean id="studentSix" class="com.atguigu.spring.bean.Student"
+       p:id="1006" p:name="小明" p:clazz-ref="clazzOne" p:teacherMapref="teacherMap"></bean>
+
+(8)引入外部属性文件
+引入属性文件
+code:
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+配置bean:
+    <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource">
+    <property name="url" value="${jdbc.url}"/>
+    <property name="driverClassName" value="${jdbc.driver}"/>
+    <property name="username" value="${jdbc.user}"/>
+    <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+(9)bean的作用域
+在Spring中可以通过配置bean标签的scope属性来指定bean的作用域范围:
+取值 含义 创建对象的时机
+singleton（默认） 在IOC容器中，这个bean的对象始终为单实例 IOC容器初始化时
+prototype 这个bean在IOC容器中有多个实例 获取bean时
+
+配置Bean:
+code:
+    <!-- scope属性：取值singleton（默认值），bean在IOC容器中只有一个实例，IOC容器初始化时创建
+    对象 -->
+    <!-- scope属性：取值prototype，bean在IOC容器中可以有多个实例，getBean()时创建对象 -->
+    <bean class="com.atguigu.bean.User" scope="prototype"></bean>
+
+(10)bean的生命周期
+①具体的生命周期过程:
+    bean对象创建（调用无参构造器）
+    给bean对象设置属性
+    bean对象初始化之前操作（由bean的后置处理器负责）
+    bean对象初始化（需在配置bean时指定初始化方法）
+    bean对象初始化之后操作（由bean的后置处理器负责）
+    bean对象就绪可以使用
+    bean对象销毁（需在配置bean时指定销毁方法）
+    IOC容器关闭
+
+PS:注意其中的initMethod()和destroyMethod()，可以通过配置bean指定为初始化和销毁的方法
+Bean代码:
+        <!-- 使用init-method属性指定初始化方法 -->
+        <!-- 使用destroy-method属性指定销毁方法 -->
+        <bean class="com.atguigu.bean.User" scope="prototype" init-method="initMethod"
+        destroy-method="destroyMethod">
+        <property name="id" value="1001"></property>
+        <property name="username" value="admin"></property>
+        <property name="password" value="123456"></property>
+        <property name="age" value="23"></property>
+        </bean>
+
+⑤bean的后置处理器
+bean的后置处理器会在生命周期的初始化前后添加额外的操作，需要实现BeanPostProcessor接口，
+且配置到IOC容器中，需要注意的是，bean后置处理器不是单独针对某一个bean生效，而是针对IOC容
+器中所有bean都会执行
+    创建bean的后置处理器：
+        public class MyBeanProcessor implements BeanPostProcessor {
+        @Override
+        public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+            System.out.println("☆☆☆" + beanName + " = " + bean);
+            return bean;
+        }
+        @Override
+        public Object postProcessAfterInitialization(Object bean, String beanName)
+        throws BeansException {
+        System.out.println("★★★" + beanName + " = " + bean);
+        return bean;
+
+在IOC容器中配置后置处理器：
+bean:
+        !-- bean的后置处理器要放入IOC容器才能生效 -->
+        <bean id="myBeanProcessor" class="com.atguigu.spring.process.MyBeanProcessor"/>
+
+(11)FactoryBean
+①简介
+FactoryBean是Spring提供的一种整合第三方框架的常用机制。和普通的bean不同，配置一个FactoryBean类型的bean，
+在获取bean的时候得到的并不是class属性中配置的这个类的对象，而是getObject()方法的返回值。
+通过这种机制，Spring可以帮我们把复杂组件创建的详细过程和繁琐细节都屏蔽起来，只把最简洁的使用界面展示给我们
+
+②创建类UserFactoryBean
+code:
+            public class UserFactoryBean implements FactoryBean<User> {
+            @Override
+            public User getObject() throws Exception {
+                return new User();
+            }
+            @Override
+            public Class<?> getObjectType() {
+                return User.class;
+
+(12)基于xml的自动装配
+自动装配：根据指定的策略，在IOC容器中匹配某一个bean，自动为指定的bean中所依赖的类类型或接口类型属性赋值
+
+②配置bean
+使用bean标签的autowire属性设置自动装配效果
+自动装配方式：byType
+byType：根据类型匹配IOC容器中的某个兼容类型的bean，为属性自动赋值
+若在IOC中，没有任何一个兼容类型的bean能够为属性赋值，则该属性不装配，即值为默认值null
+若在IOC中，有多个兼容类型的bean能够为属性赋值，则抛出异常NoUniqueBeanDefinitionException
+
+sample:
+        <bean id="userController"
+        class="com.atguigu.autowire.xml.controller.UserController" autowire="byType">
+        </bean>
+        <bean id="userService"
+        class="com.atguigu.autowire.xml.service.impl.UserServiceImpl" autowire="byType">
+        </bean>
+        <bean id="userDao" class="com.atguigu.autowire.xml.dao.impl.UserDaoImpl"></bean>
+
+PS:自动装配方式：byName
+   byName：将自动装配的属性的属性名，作为bean的id在IOC容器中匹配相对应的bean进行赋值
+
+sample:<bean id="userController"
+       class="com.atguigu.autowire.xml.controller.UserController" autowire="byName">
+       </bean>
+       <bean id="userService"
+       class="com.atguigu.autowire.xml.service.impl.UserServiceImpl" autowire="byName">
+       </bean>
+       <bean id="userServiceImpl"
+       class="com.atguigu.autowire.xml.service.impl.UserServiceImpl" autowire="byName">
+       </bean>
+       <bean id="userDao" class="com.atguigu.autowire.xml.dao.impl.UserDaoImpl"></bean>
+       <bean id="userDaoImpl" class="com.atguigu.autowire.xml.dao.impl.UserDaoImpl">
+       </bean>
+
+
+
+
+p87
 
 
 
