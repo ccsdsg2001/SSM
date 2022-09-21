@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="usercontroller" class="com.atguigu.spring.controller.Usercontroller" autowire="byName">
+    <bean id="usercontroller" class="com.atguigu.spring.Usercontroller.Usercontroller" autowire="byName">
 <!--        <property name="userService" ref="userService"></property>-->
     </bean>
     <bean id="userService" class="com.atguigu.spring.service.impl.UserServiceImpl" autowire="byName">
