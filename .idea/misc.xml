@@ -12,6 +12,7 @@
         <option value="$PROJECT_DIR$/Spring_hellp/pom.xml" />
         <option value="$PROJECT_DIR$/spring_ioc_annotation/pom.xml" />
         <option value="$PROJECT_DIR$/spring-proxy/pom.xml" />
+        <option value="$PROJECT_DIR$/spring_aop/pom.xml" />
       </list>
     </option>
   </component>

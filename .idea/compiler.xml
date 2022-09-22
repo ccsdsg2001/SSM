@@ -15,6 +15,7 @@
         <module name="mybatis_dynamicSQL" />
         <module name="mybatis_cache" />
         <module name="spring_ioc_annotation" />
+        <module name="spring_aop" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8">
@@ -25,6 +26,7 @@
       <module name="mybatis_parameter" target="17" />
       <module name="mybatis_resultMap" target="17" />
       <module name="spring-proxy" target="17" />
+      <module name="spring_aop" target="8" />
       <module name="Spring_hellp" target="17" />
       <module name="spring_ioc_annotation" target="17" />
     </bytecodeTargetLevel>

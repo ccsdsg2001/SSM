@@ -1,11 +1,13 @@
-package com.atguigu.spring.proxy;
+package com.atfuifu.spring.aop.annotation;
+
+import org.springframework.stereotype.Component;
 
 /**
  * Date:2022/7/4
  * Author:ybc
  * Description:
  */
-
+@Component
 public class CalculatorImpl implements Calculator {
     @Override
     public int add(int i, int j) {
