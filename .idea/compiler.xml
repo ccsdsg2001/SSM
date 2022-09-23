@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="spring-proxy" />
         <module name="mybatis_resultMap" />
+        <module name="spring-transaction" />
         <module name="Spring_hellp" />
         <module name="mybatis_helloworld" />
         <module name="mybatis_parameter" />
@@ -26,7 +27,8 @@
       <module name="mybatis_parameter" target="17" />
       <module name="mybatis_resultMap" target="17" />
       <module name="spring-proxy" target="17" />
-      <module name="spring_aop" target="8" />
+      <module name="spring-transaction" target="17" />
+      <module name="spring_aop" target="17" />
       <module name="Spring_hellp" target="17" />
       <module name="spring_ioc_annotation" target="17" />
     </bytecodeTargetLevel>
