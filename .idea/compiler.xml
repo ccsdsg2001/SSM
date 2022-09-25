@@ -8,9 +8,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="spring-proxy" />
         <module name="mybatis_resultMap" />
+        <module name="Spring-mvc-demo" />
+        <module name="mybatis_helloworld" />
+        <module name="spring_mvc_helloworld" />
         <module name="spring-transaction" />
         <module name="Spring_hellp" />
-        <module name="mybatis_helloworld" />
         <module name="mybatis_parameter" />
         <module name="mybatis_mbg" />
         <module name="mybatis_dynamicSQL" />
@@ -26,11 +28,13 @@
       <module name="mybatis_mbg" target="17" />
       <module name="mybatis_parameter" target="17" />
       <module name="mybatis_resultMap" target="17" />
+      <module name="Spring-mvc-demo" target="8" />
       <module name="spring-proxy" target="17" />
       <module name="spring-transaction" target="17" />
       <module name="spring_aop" target="17" />
       <module name="Spring_hellp" target="17" />
       <module name="spring_ioc_annotation" target="17" />
+      <module name="spring_mvc_helloworld" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

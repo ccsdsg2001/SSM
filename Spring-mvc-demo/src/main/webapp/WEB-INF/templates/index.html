@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+帅哥
+<a th:href="@{/hello}">test</a> </br>
+<a th:href="@{/abc}">测试</a>
+<a th:href="@{/hello?username=admin}">测试</a>
+<a th:href="@{/aaa/test/ant}">测试1</a>
+<a th:href="@{/test/rest/1/admin}">测试32123123213</a>
+<form th:action="@{/hello}" method="post">
+    <input type="submit" value="ceshi">
+
+</form>
+
+<hr>
+<form th:action="@{/param}" method="post">
+    用户名:<input type="text" name="userName">
+    密码:<input type="password" name="password">
+    <input type="submit" value="登录">
+</form>
+
+<a th:href="@{/param/servletAPI}"></a>
+
+<hr>
+
+<a th:href="@{/test/mav}">测试通过</a>
+<a th:href="@{/test/model}">测试通过model</a>
+<a th:href="@{/test/modelmap}">测试通过modelmap</a>
+<a th:href="@{/test/map}">测试通过model</a>
+<hr>
+<a th:href="@{/test/session}">session</a>
+<a th:href="@{/test/application}">application</a>
+
+-----------------------------------
+<hr>
+
+<a th:href="@{/test/view/thymeleaf}">thymeleaf视图</a>
+<a th:href="@{/test/view/forward}">internetresourceview</a>
+<a th:href="@{/test/view/redirect}">redirectview</a>
+
+
+</body>
+</html>
