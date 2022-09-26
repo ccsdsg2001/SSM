@@ -2,6 +2,7 @@
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/Spring-mvc-demo" />
+    <file type="web" url="file://$PROJECT_DIR$/Spring-mvc-restful" />
     <file type="web" url="file://$PROJECT_DIR$/spring_mvc_helloworld" />
   </component>
   <component name="MavenProjectsManager">
@@ -20,6 +21,7 @@
         <option value="$PROJECT_DIR$/spring-transaction/pom.xml" />
         <option value="$PROJECT_DIR$/spring_mvc_helloworld/pom.xml" />
         <option value="$PROJECT_DIR$/Spring-mvc-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/Spring-mvc-restful/pom.xml" />
       </list>
     </option>
   </component>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>update</title>
+    <link rel="stylesheet" th:href="@{/static/css/index_work.css}">
+</head>
+<body>
+<form th:action="@{/emp}" method="post">
+    <input type="hidden" name="_method" value="put" >
+    <input type="hidden" name="id" th:value="${emp.id}" >
+
+    <table>
+        <tr>
+            <th colspan="2" >add emp</th>
+        </tr>
+        <tr>
+            <td>lastName</td>
+            <td>
+                <input type="text" name="lastName" th:value="${emp.lastName}">
+            </td>
+        </tr>
+        <tr>
+            <td>email</td>
+            <td>
+                <input type="text" name="email" th:value="${emp.email}">
+            </td>
+        </tr>
+        <tr>
+            <td>gender</td>
+            <td>
+                <input type="radio" name="gender" value="1" th:field="${emp.gender}">male
+                <input type="radio" name="gender" value="0" th:field="${emp.gender}">female
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="update">
+            </td>
+        </tr>
+
+    </table>
+</form>
+
+</body>
+</html>

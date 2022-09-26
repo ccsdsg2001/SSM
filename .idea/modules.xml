@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SSM.iml" filepath="$PROJECT_DIR$/SSM.iml" />
       <module fileurl="file://$PROJECT_DIR$/Spring-mvc-demo/Spring-mvc-demo.iml" filepath="$PROJECT_DIR$/Spring-mvc-demo/Spring-mvc-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Spring-mvc-restful/Spring-mvc-restful.iml" filepath="$PROJECT_DIR$/Spring-mvc-restful/Spring-mvc-restful.iml" />
       <module fileurl="file://$PROJECT_DIR$/Spring_hellp/Spring_hellp.iml" filepath="$PROJECT_DIR$/Spring_hellp/Spring_hellp.iml" />
       <module fileurl="file://$PROJECT_DIR$/mybatis_cache/mybatis_cache.iml" filepath="$PROJECT_DIR$/mybatis_cache/mybatis_cache.iml" />
       <module fileurl="file://$PROJECT_DIR$/mybatis_dynamicSQL/mybatis_dynamicSQL.iml" filepath="$PROJECT_DIR$/mybatis_dynamicSQL/mybatis_dynamicSQL.iml" />
