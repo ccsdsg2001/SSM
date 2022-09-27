@@ -12,6 +12,7 @@
       <module fileurl="file://$PROJECT_DIR$/mybatis_mbg/mybatis_mbg.iml" filepath="$PROJECT_DIR$/mybatis_mbg/mybatis_mbg.iml" />
       <module fileurl="file://$PROJECT_DIR$/mybatis_parameter/mybatis_parameter.iml" filepath="$PROJECT_DIR$/mybatis_parameter/mybatis_parameter.iml" />
       <module fileurl="file://$PROJECT_DIR$/mybatis_resultMap/mybatis_resultMap.iml" filepath="$PROJECT_DIR$/mybatis_resultMap/mybatis_resultMap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-mvc-extension/spring-mvc-extension.iml" filepath="$PROJECT_DIR$/spring-mvc-extension/spring-mvc-extension.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-proxy/spring-proxy.iml" filepath="$PROJECT_DIR$/spring-proxy/spring-proxy.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-transaction/spring-transaction.iml" filepath="$PROJECT_DIR$/spring-transaction/spring-transaction.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring_aop/spring_aop.iml" filepath="$PROJECT_DIR$/spring_aop/spring_aop.iml" />
