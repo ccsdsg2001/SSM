@@ -11,6 +11,7 @@
         <module name="Spring-mvc-demo" />
         <module name="mybatis_helloworld" />
         <module name="Spring-mvc-restful" />
+        <module name="spring_mvc_ajax" />
         <module name="spring_mvc_helloworld" />
         <module name="spring-transaction" />
         <module name="Spring_hellp" />
@@ -30,12 +31,13 @@
       <module name="mybatis_parameter" target="17" />
       <module name="mybatis_resultMap" target="17" />
       <module name="Spring-mvc-demo" target="17" />
-      <module name="Spring-mvc-restful" target="8" />
+      <module name="Spring-mvc-restful" target="17" />
       <module name="spring-proxy" target="17" />
       <module name="spring-transaction" target="17" />
       <module name="spring_aop" target="17" />
       <module name="Spring_hellp" target="17" />
       <module name="spring_ioc_annotation" target="17" />
+      <module name="spring_mvc_ajax" target="8" />
       <module name="spring_mvc_helloworld" target="17" />
     </bytecodeTargetLevel>
   </component>
