@@ -18,6 +18,7 @@
       <module fileurl="file://$PROJECT_DIR$/spring_aop/spring_aop.iml" filepath="$PROJECT_DIR$/spring_aop/spring_aop.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring_ioc_annotation/spring_ioc_annotation.iml" filepath="$PROJECT_DIR$/spring_ioc_annotation/spring_ioc_annotation.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring_mvc_ajax/spring_mvc_ajax.iml" filepath="$PROJECT_DIR$/spring_mvc_ajax/spring_mvc_ajax.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring_mvc_annotation/spring_mvc_annotation.iml" filepath="$PROJECT_DIR$/spring_mvc_annotation/spring_mvc_annotation.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring_mvc_helloworld/spring_mvc_helloworld.iml" filepath="$PROJECT_DIR$/spring_mvc_helloworld/spring_mvc_helloworld.iml" />
     </modules>
   </component>
