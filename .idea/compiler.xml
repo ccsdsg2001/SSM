@@ -10,6 +10,7 @@
         <module name="mybatis_resultMap" />
         <module name="Spring-mvc-demo" />
         <module name="mybatis_helloworld" />
+        <module name="Spring_listner" />
         <module name="Spring-mvc-restful" />
         <module name="spring_mvc_ajax" />
         <module name="spring_mvc_helloworld" />
@@ -21,6 +22,7 @@
         <module name="mybatis_mbg" />
         <module name="mybatis_dynamicSQL" />
         <module name="mybatis_cache" />
+        <module name="SSMFinal" />
         <module name="spring_ioc_annotation" />
         <module name="spring_aop" />
       </profile>
@@ -40,9 +42,11 @@
       <module name="spring_aop" target="17" />
       <module name="Spring_hellp" target="17" />
       <module name="spring_ioc_annotation" target="17" />
+      <module name="Spring_listner" target="17" />
       <module name="spring_mvc_ajax" target="17" />
       <module name="spring_mvc_annotation" target="17" />
       <module name="spring_mvc_helloworld" target="17" />
+      <module name="SSMFinal" target="8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

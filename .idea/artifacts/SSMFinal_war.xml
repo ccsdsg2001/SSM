@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="SSMFinal:war">
+    <output-path>$PROJECT_DIR$/SSMFinal/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>SSMFinal</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="SSMFinal-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="SSMFinal:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,44 @@
+ <?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--    Mybatis配置文件中按照指定的顺序进行配置
+properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,objectWrapperFactory?,reflectorFactory?,plugins?,environments?,databaseIdProvider?,mappers?-->
+    <!--    引入jdbc.properties 此后可以在当前文件中使用的方式访问value-->
+<!--    <properties resource="jdbc.properties"></properties>-->
+    <settings>
+        <!--         将下划线映射为驼峰-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+<!--    <typeAliases>-->
+<!--        &lt;!&ndash;        通过package类型来设置属性别名,包下所有的类型都有默认的类名,且不区分大小写&ndash;&gt;-->
+<!--        <package name=""/>-->
+<!--    </typeAliases>-->
+
+<!--    <environments default="development">-->
+<!--        <environment id="development">-->
+<!--            <transactionManager type="JDBC"/>-->
+<!--            <dataSource type="POOLED">-->
+<!--                <property name="driver" value="${jdbc.driver}"/>-->
+<!--                <property name="url" value="${jdbc.url}"/>-->
+<!--                <property name="username" value="${jdbc.username}"/>-->
+<!--                <property name="password" value="${jdbc.password}"/>-->
+<!--            </dataSource>-->
+<!--        </environment>-->
+<!--    </environments>-->
+
+    <!--    引入mybatis的映射文件-->
+<!--    <mappers>-->
+<!--        &lt;!&ndash;        <mapper resource=""/>&ndash;&gt;-->
+<!--        &lt;!&ndash;        以包的方式来引入映射文件,必须满足两个条件,1.mapper接口和映射文件所在的包保持一致  2.mapper接口的名字和映射文件的名字必须保持一致&ndash;&gt;-->
+<!--        <package name=""/>-->
+<!--    </mappers>-->
+
+
+<!--    配置分页插件-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptorn"></plugin>
+    </plugins>
+</configuration>
