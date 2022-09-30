@@ -5,6 +5,9 @@
 <mapper namespace="com.atguigu.mapper.Empmapper">
 
 
-
+<!--List<emp> getAllemp();-->
+    <select id="getAllemp" resultType="emp">
+        select  * from t_emp
+    </select>
 
 </mapper>

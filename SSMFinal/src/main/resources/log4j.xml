@@ -18,4 +18,4 @@
         <level value="debug" />
         <appender-ref ref="STDOUT" />
     </root>
-</log4j:configuration
+</log4j:configuration>
